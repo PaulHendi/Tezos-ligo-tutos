@@ -1,7 +1,10 @@
+type balanceOf = (address, tez) map
+type lockedUntil = (address, timestamp) map
+
 type storage = {
-    hodl_duration : nat;   
-    balance_of : (address, nat) map;
-    locked_until : (address, nat) map
+    hodl_duration : int;   
+    balance_of : balanceOf;
+    locked_until : lockedUntil
 }
 
 type parameter = 
@@ -13,15 +16,16 @@ type return = operation list * storage
 
 
 let deposit(store: storage) = 
-    let assign(m : store.balance_of) : store.balance_of = 
-        Map.update((Tezos.get_sender()), (Some(Tezos.get_amount())), m) in 
+    let updatedbalance : balanceOf = 
+        Map.update (Tezos.get_sender())  (Some(Tezos.get_amount())) store.balance_of in 
     
-    let locked_until = Tezos.get_now() + store.hodl_duration  in
-    
-    let assign(m : store.locked_until) : store.locked_until = 
-        Map.update(Tezos.get_sender(), Some(locked_until), m) in 
+    let end_at: timestamp = Tezos.get_now() + store.hodl_duration in
 
-    [], store
+    let updatedLockedUntil : lockedUntil = 
+        Map.update (Tezos.get_sender())  (Some(end_at)) store.locked_until in 
+        
+
+    [], {hodl_duration = store.hodl_duration; balance_of = updatedbalance; locked_until = updatedLockedUntil}
 
 let withdraw(store: storage) = 
     [], store
