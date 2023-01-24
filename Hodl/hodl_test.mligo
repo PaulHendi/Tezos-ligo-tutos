@@ -1,5 +1,8 @@
 #include "hodl.mligo" 
 
+// TODO :
+// 1) Find a way to log the contract's balance (the typed address is not compatible with get_balance())
+// 2) Find a way to simulate time, to go to a later block in time
 let test =
   let initial_storage: storage = {
       hodl_duration = 3600; 
