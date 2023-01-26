@@ -1,0 +1,7 @@
+{ parameter (or (string %create) (unit %toggleCompleted)) ;
+  storage (pair (bool %completed) (string %name)) ;
+  code { UNPAIR ;
+         IF_LEFT { SWAP ; DROP ; PUSH bool False } { DROP ; CDR ; PUSH bool True } ;
+         PAIR ;
+         NIL operation ;
+         PAIR } }
