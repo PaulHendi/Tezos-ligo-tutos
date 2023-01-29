@@ -6,7 +6,7 @@ type parameter =
 
 type return = operation list * storage
 
-let ownerAddress : address = "tz1MBWU1WkszFfkEER2pgn4ATKXE9ng7x1sR" 
+let ownerAddress : address = "tz1WuWJ98ZCtgBhfVF4UDucCeYvJbELqbfck" 
 
 // Two entrypoints
 let deposit(balance: storage) = 

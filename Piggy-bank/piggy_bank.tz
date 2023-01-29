@@ -1,0 +1,23 @@
+{ parameter (or (unit %deposit) (unit %withdraw)) ;
+  storage mutez ;
+  code { UNPAIR ;
+         IF_LEFT
+           { DROP ; AMOUNT ; ADD ; NIL operation ; PAIR }
+           { DROP ;
+             PUSH address "tz1WuWJ98ZCtgBhfVF4UDucCeYvJbELqbfck" ;
+             SENDER ;
+             COMPARE ;
+             NEQ ;
+             IF { DROP ; PUSH string "Not owner" ; FAILWITH }
+                { SENDER ;
+                  CONTRACT unit ;
+                  IF_NONE { PUSH string "Contract not found." ; FAILWITH } {} ;
+                  SWAP ;
+                  UNIT ;
+                  TRANSFER_TOKENS ;
+                  PUSH mutez 0 ;
+                  NIL operation ;
+                  DIG 2 ;
+                  CONS ;
+                  PAIR } } } }
+
