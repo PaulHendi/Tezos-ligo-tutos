@@ -1,5 +1,5 @@
 octez-client --endpoint https://rpc.ghostnet.teztnets.xyz config update
-octez-client import secret key owner unencrypted:edskRnF7WqK1em23FhRHbW7fJpXyB2M3gqfxU3BbkMaSd6Mron9eMk5PewABKWXuWfgUQv4YBxTRVP41STyMcWEHeAzYQdmQh4
+octez-client import secret key owner SECRET_KEY
 octez-client originate contract piggy_bank \
               transferring 0 from owner \
               running piggy_bank.tz \
